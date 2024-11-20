@@ -14,25 +14,24 @@ export const Todo = () => {
         }
     }, [])
 
+    // useEffect(() => {
+    //     saveToLocalStorage()
+    // }, [todos])
+
 
     const saveToLocalStorage = (params) => {
-        localStorage.setItem('todos', JSON.stringify(todos))
+        localStorage.setItem("todos", JSON.stringify(todos))
     }
 
     const handleAdd = () => {
         setTodos([...todos, { id: uuidv4(), todo, isCompleted: false }])
         setTodo("")
-        saveToLocalStorage();
     }
 
     const handleEdit = (e, id) => {
         let t = todos.filter(i => i.id === id)
         setTodo(t[0].todo)
-        let newTodos = todos.filter(item => {
-            return item.id !== id
-        });
-        setTodos(newTodos)
-        saveToLocalStorage()
+        handleDelete(e, id)
     }
 
     const handleDelete = (e, id) => {
@@ -45,6 +44,7 @@ export const Todo = () => {
 
     const handleChange = (e) => {
         setTodo(e.target.value);
+        saveToLocalStorage()
     }
 
     const handleCheckbox = (e) => {
